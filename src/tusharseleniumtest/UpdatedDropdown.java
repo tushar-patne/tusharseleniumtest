@@ -52,8 +52,7 @@ public class UpdatedDropdown {
 		System.out.println("selected adults: " + numberOfAdultElement.getText());
 		System.out.println("selected children: " + numberOfChildElement.getText());
 		System.out.println("selected infacts: " + numberOfInfactElement.getText());
-		
-		
+
 		driver.quit();
 
 	}
