@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 public class UpdatedDropdown {
 
@@ -23,10 +24,11 @@ public class UpdatedDropdown {
 		WebElement numberOfAdultElement = driver.findElement(By.id("spanAudlt"));
 		WebElement numberOfChildElement = driver.findElement(By.id("spanChild"));
 		WebElement numberOfInfactElement = driver.findElement(By.id("spanInfant"));
+		WebElement doneBtnElement = driver.findElement(By.id("btnclosepaxoption"));
 		
 		int adults = 4;
 		int children = 3;
-		int infact = 1;
+		int infant = 1;
 		
 		System.out.println(passangerDropdownElement.getText());
 		passangerDropdownElement.click();
@@ -43,15 +45,25 @@ public class UpdatedDropdown {
 			i--;
 		}
 		
-		i = infact;
+		i = infant;
 		while (i > 0) {
 			incrementInfactBtnElement.click();
 			i--;
 		}
 		
 		System.out.println("selected adults: " + numberOfAdultElement.getText());
+		Assert.assertEquals(Integer.parseInt(numberOfAdultElement.getText()), adults + 1);
 		System.out.println("selected children: " + numberOfChildElement.getText());
-		System.out.println("selected infacts: " + numberOfInfactElement.getText());
+		Assert.assertEquals(Integer.parseInt(numberOfChildElement.getText()), children);
+		System.out.println("selected infants: " + numberOfInfactElement.getText());
+		Assert.assertEquals(Integer.parseInt(numberOfInfactElement.getText()), infant);
+		
+		doneBtnElement.click();
+		String actualDropdownText = passangerDropdownElement.getText();
+		String expectedDropdownText = adults+1 + " Adult, " + children + " Child, " + infant + " Infant";
+		System.out.println(actualDropdownText);
+		System.out.println(expectedDropdownText);
+		Assert.assertEquals(actualDropdownText, expectedDropdownText);
 
 		driver.quit();
 
